@@ -35,22 +35,46 @@ def get_drink_type():
   if res == 'a':
     return 'brewed coffee'
   elif res == 'b':
-    return 'mocha'
+    return order_mocha()
   elif res == 'c':
     return order_latte()
   else:
     print_message()
     return get_drink_type()
 
+def order_mocha():
+  while True:
+    res = input('Would you like to try our limited-edition peppermint mocha? \n[a] Sure! \n[b] Maybe next time! \n> ')
+
+    if res == 'a':
+      return 'peppermint mocha'
+    elif res == 'b':
+      return 'mocha'
+  print_message()
+
 def coffee_bot():
     print('Welcome to the cafe')
 
-    size = get_size()
-    drink_type = get_drink_type()
-    print(f'Alright, that\'s a {size} {drink_type}!')
+    order_drink = 'y'
+    drinks=[]
+
+    while order_drink == 'y':
+      size = get_size()
+      drink_type = get_drink_type()
+
+      drink = '{} {}'.format(size, drink_type)
+      print(f'Alright, that\'s a {size} {drink_type}!')
+      drinks.append(drink)
+
+      while True:
+        order_drink = input('Would you like to order another drink? (y/n) \n> ')
+        if order_drink in ['y', 'n']:
+          break
+    print('Okay so I have... ')
+    for drink in drinks:
+      print('-', drink)
+
     name = input('Can I get your name please? \n> ')
-    print(f'Thanks, {name}! Your drink will be ready shortly.')
-
-
+    print(f'Thanks, {name}! Your order will be ready shortly.')
 
 coffee_bot()
